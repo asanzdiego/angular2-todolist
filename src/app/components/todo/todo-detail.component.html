@@ -1,3 +1,6 @@
-<p>
-  todo works!
-</p>
+<h2>ToDo Detail</h2>
+
+<ul *ngIf="toDo">
+    <li><strong>ID:</strong> {{toDo.id}}</li>
+    <li><strong>NAME:</strong> {{toDo.name}}</li> 
+</ul>

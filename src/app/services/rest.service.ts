@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
-import { environment } from './environments/environment';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
-import { Error } from '../util/global-error';
+import { GlobalError } from '../util/global-error';
 import { AlertService } from './alert.service';
+
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class RestService {
@@ -21,36 +23,40 @@ export class RestService {
 
   callGet(url: string, callback: (json: any) => any) {
     console.log("callGet -> url", url);
-    return this._http.get(this._restURL + url, this._getRequestOptions())
-      .map(this._processResponse)
+    this._http.get(this._restURL + url, this._getRequestOptions())
+      .toPromise()
+      .then(this._processResponse)
       .catch(this._handleError(this._alertService))
-      .subscribe(json => callback(json), this._processError);
+      .then(json => callback(json));
   }
 
   callPost(url: string, body: any, callback: (json: any) => any) {
     console.log("callPost -> url", url);
     console.log("callPost -> body", body);
     this._http.post(this._restURL + url, JSON.stringify(body), this._getRequestOptions())
-      .map(this._processResponse)
+      .toPromise()
+      .then(this._processResponse)
       .catch(this._handleError(this._alertService))
-      .subscribe(json => callback(json), this._processError);
+      .then(json => callback(json));
   }
 
   callPut(url: string, body: any, callback: (json: any) => any) {
     console.log("callPut -> url", url);
     console.log("callPut -> body", body);
     this._http.put(this._restURL + url, JSON.stringify(body), this._getRequestOptions())
-      .map(this._processResponse)
+      .toPromise()
+      .then(this._processResponse)
       .catch(this._handleError(this._alertService))
-      .subscribe(json => callback(json), this._processError);
+      .then(json => callback(json));
   }
 
   callDelete(url: string, callback: (json: any) => any) {
     console.log("callDelete -> url", url);
-    this._http.delete(this._restURL + url + this._generateUrlParams(urlParams), this.getOptions())
-      .map(this._processResponse)
+    this._http.delete(this._restURL + url, this._getRequestOptions())
+      .toPromise()
+      .then(this._processResponse)
       .catch(this._handleError(this._alertService))
-      .subscribe(json => callback(json), this._processError);
+      .then(json => callback(json));
   }
 
   private _processResponse(response: Response) {
@@ -100,11 +106,6 @@ export class RestService {
       }
       return Observable.throw(globalError);
     }
-  }
-
-  private _processError(error: any) {
-    console.error('_processError: ', error);
-    return Observable.throw(error || 'Error en la comunicación con el servidor');
   }
 
 }

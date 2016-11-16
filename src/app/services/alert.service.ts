@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { GlobalError } from '../util/global.error';
+import { GlobalError } from '../util/global-error';
 
 @Injectable()
-export class AlertaService {
+export class AlertService {
 
   private _onError = new Subject<GlobalError>();
 
