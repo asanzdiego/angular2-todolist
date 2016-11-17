@@ -1,1 +1,22 @@
 <h2>ToDo List</h2>
+
+<table *ngIf="toDos" class="table table-striped table-condensed table-hover"
+  [mfData]="toDos" #mf="mfDataTable" [mfRowsOnPage]="10">
+  <thead>
+    <tr>
+      <th><mfDefaultSorter by="id">ID</mfDefaultSorter></th>
+      <th><mfDefaultSorter by="name">NAME</mfDefaultSorter></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let toDo of mf.data" (click)="open(toDo)">
+      <td>{{toDo.id}}</td>
+      <td>{{toDo.name}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2" class="text-center"><mfBootstrapPaginator></mfBootstrapPaginator></td>
+    </tr>
+  </tfoot>
+</table>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ToDo } from '../../entities/todo.entity';
 import { ToDoService } from '../../services/todo.service';
 
@@ -11,13 +11,14 @@ import { ToDoService } from '../../services/todo.service';
 })
 export class ToDoDetailComponent implements OnInit {
 
-  toDo : ToDo;
+  toDo: ToDo;
 
   constructor(private _route: ActivatedRoute, private _toDoService: ToDoService) { }
 
   ngOnInit() {
-    let id = +this._route.snapshot.params['id'];
-    this._toDoService.get(id, toDo => this.toDo = toDo);
+    this._route.params
+      .switchMap((params: Params) => this._toDoService.get(+params['id']))
+      .subscribe(toDo => this.toDo = toDo);
   }
 
 }
