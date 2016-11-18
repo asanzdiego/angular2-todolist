@@ -3,7 +3,7 @@
 <div *ngIf="globalError" class="alert alert-danger alert-dismissible" role="alert">
   <button (click)="closeGlobalError()" type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span></button>
-  <strong>Error {{globalError.error}}:</strong> {{globalError.message}}
+  <strong>Error {{globalError.status}} - {{globalError.error}}:</strong> {{globalError.message}}
 </div>
 
 <div class="row">
