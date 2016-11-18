@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let toDo of mf.data" (click)="open(toDo)">
+    <tr *ngFor="let toDo of mf.data" (click)="openTodo(toDo)">
       <td>{{toDo.id}}</td>
       <td>{{toDo.name}}</td>
     </tr>

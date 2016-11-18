@@ -57,10 +57,9 @@ export class ToDoService {
       .catch(this._handleError(this._alertService));
   }
 
-  update(id: number, toDo: ToDo): Promise<ToDo> {
-    console.log("update -> id", id);
+  update(toDo: ToDo): Promise<ToDo> {
     console.log("update -> toDo", toDo);
-    let url = "todo/" + id;
+    let url = "todo/" + toDo.id;
     return this._http.put(this._restURL + url, toDo, this._getRequestOptions())
       .toPromise()
       .then(response => response.json() as ToDo)

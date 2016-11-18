@@ -1,4 +1,4 @@
-export interface ToDo {
-    id: string;
+export class ToDo {
+    id: number;
     name: string;
 }

@@ -1,9 +1,26 @@
 <h2>ToDo Detail</h2>
 
-<div *ngIf="toDo">
-    <div><label>ID:</label>{{toDo.id}}</div>
-    <div>
-        <label>NAME: </label>
-        <input [(ngModel)]="toDo.name" placeholder="name">
+<br />
+<br />
+
+<div *ngIf="toDo" class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="id">ID:</label>
+        <div class="col-sm-8">
+            <p id="id" class="form-control">{{toDo.id}}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3" for="name">NAME: </label>
+        <div class="col-sm-8">
+            <input id="name" class="form-control" [(ngModel)]="toDo.name" placeholder="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-11 text-right">
+            <button (click)="delete()" class="btn btn-danger">Delete</button>
+            <button (click)="update()" class="btn btn-primary">Update</button>
+            <a routerLink="/" class="btn btn-info">New</a>
+        </div>
     </div>
 </div>
